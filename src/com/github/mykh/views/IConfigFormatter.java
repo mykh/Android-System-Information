@@ -21,6 +21,6 @@ import com.github.mykh.common.Config;
 import com.github.mykh.common.ConfigList;
 
 public interface IConfigFormatter {
-	public void Process(Config node, StringBuilder sb, int level);
-	public void Process(ConfigList list, StringBuilder sb, int level);
-};
+	public void process(Config node, StringBuilder sb, int level);
+	public void process(ConfigList list, StringBuilder sb, int level);
+}

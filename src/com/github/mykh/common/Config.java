@@ -32,4 +32,4 @@ public class Config extends ConfigBase {
 	public String getValue() {
 		return value;
 	}
-};
+}

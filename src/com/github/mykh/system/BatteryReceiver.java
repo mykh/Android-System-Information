@@ -192,4 +192,4 @@ public class BatteryReceiver extends BroadcastReceiver {
 	public boolean isDataReceived() {
 		return dataReceived;
 	};
-};
+}

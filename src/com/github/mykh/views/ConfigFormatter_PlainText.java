@@ -29,7 +29,7 @@ public class ConfigFormatter_PlainText implements IConfigFormatter {
 		}
 	}
 
-	public void Process(Config node, StringBuilder sb, int level) {
+	public void process(Config node, StringBuilder sb, int level) {
 		if (!Utils.SHOW_UNIMPLEMENTED_ITEMS && node.getName().startsWith("*"))
 			return;
 		appendSpaces(sb, level);
@@ -42,7 +42,7 @@ public class ConfigFormatter_PlainText implements IConfigFormatter {
 		sb.append("\n");
 	}
 
-	public void Process(ConfigList list, StringBuilder sb, int level) {
+	public void process(ConfigList list, StringBuilder sb, int level) {
 		if ((list.getName() != null) && list.getName().length() > 0) {
 			appendSpaces(sb, level);
 			sb.append("# ");
@@ -52,12 +52,12 @@ public class ConfigFormatter_PlainText implements IConfigFormatter {
 		}
 		for (ConfigBase node : list.getItems()) {
 			if (node instanceof Config)
-				Process((Config) node, sb, level);
+				process((Config) node, sb, level);
 			else if (node instanceof ConfigList) {
 				if (sb.length() != 0)
 					sb.append("\n");
-				Process((ConfigList) node, sb, level + 1);
+				process((ConfigList) node, sb, level + 1);
 			}
 		}
 	}
-};
+}

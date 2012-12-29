@@ -367,10 +367,10 @@ public class SysInfo {
 	}
 
 	public void process(ConfigList config) {
-        // http://etenclub.ru/pda/board/Optimizaciya-raboty-pamyati-shtatnymi-sredstvami-android-os-t30608.html#entry267212
-        // http://forum.xda-developers.com/showpost.php?p=5442369&postcount=1
-        // http://developer.android.com/reference/android/content/pm/PackageManager.html
-        // http://developer.android.com/reference/android/webkit/WebSettings.htm
+		// http://etenclub.ru/pda/board/Optimizaciya-raboty-pamyati-shtatnymi-sredstvami-android-os-t30608.html#entry267212
+		// http://forum.xda-developers.com/showpost.php?p=5442369&postcount=1
+		// http://developer.android.com/reference/android/content/pm/PackageManager.html
+		// http://developer.android.com/reference/android/webkit/WebSettings.htm
 		// http://www.xinotes.org/notes/note/911/
 		// /proc/stat
 		// /proc/mounts

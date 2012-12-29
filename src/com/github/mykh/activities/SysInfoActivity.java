@@ -73,7 +73,7 @@ public class SysInfoActivity extends Activity {
 		info.process(config);
 		StringBuilder report = new StringBuilder();
 		IConfigFormatter formatter = new ConfigFormatter_PlainText();
-		formatter.Process(config, report, 0);
+		formatter.process(config, report, 0);
 		textView.setText(report.toString());
 	}
 }
