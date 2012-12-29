@@ -6,8 +6,6 @@ The aim of this project is to collect methods and tricks to obtain Android syste
 Screenshots
 ============
 
-http://farm9.staticflickr.com/8071/8321167917_3da5d83c49_b_d.jpg
-
 ![ScreenShot](http://farm9.staticflickr.com/8071/8321167917_3da5d83c49_b_d.jpg)
   
 ![ScreenShot](http://farm9.staticflickr.com/8212/8321167811_b043f16157_b_d.jpg)
