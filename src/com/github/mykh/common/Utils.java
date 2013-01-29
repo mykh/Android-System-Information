@@ -37,7 +37,7 @@ public class Utils {
 	public static final Locale locale = Locale.getDefault();
 	
 	public static String dumpObject(Object o) {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		Class<?> oClass = o.getClass();
 		if (oClass.isArray()) {
 			buffer.append("Array: ");
@@ -85,7 +85,7 @@ public class Utils {
 	
 	private String getCatResult(String filePath) {
 		ProcessBuilder cmd;
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		try {
 			String[] args = { "/system/bin/cat", filePath };
 			cmd = new ProcessBuilder(args);
@@ -179,7 +179,7 @@ public class Utils {
 	}
 	
 	public static String readFileAsString(String filePath) throws java.io.IOException {
-		StringBuffer fileData = new StringBuffer();
+		StringBuilder fileData = new StringBuilder();
 		BufferedReader reader = new BufferedReader(new FileReader(filePath));
 		try {
 			char[] buf = new char[1 * KB];

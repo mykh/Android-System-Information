@@ -48,8 +48,9 @@ public class SysInfo {
 	private static int getVersionSdk() {
 		final String clsVer = "android.os.Build$VERSION";
 		int ver = Utils.getClassFieldInt(clsVer, "SDK_INT", -1);
-		if (ver == -1)
+		if (ver == -1) {
 			ver = Utils.getClassFieldInt(clsVer, "SDK", -1);
+		}
 		return ver;
 	}
 
@@ -69,8 +70,9 @@ public class SysInfo {
 		List<String> values = new ArrayList<String>();
 		getProcParams(filePath, names, values);
 		assert (names.size() == values.size());
-		for (int i = 0; i < names.size(); i++)
+		for (int i = 0; i < names.size(); i++) {
 			list.getItems().add(new Config(names.get(i), values.get(i)));
+		}
 	}
 
 	private Context context;
@@ -100,8 +102,9 @@ public class SysInfo {
 		String buildBootloader = Utils.getClassFieldStrOrNull("android.os.Build", "BOOTLOADER");
 		String buildHardware = Utils.getClassFieldStrOrNull("android.os.Build", "HARDWARE");
 		String buildRadio = Utils.invokeClassMethodStrOrNull("android.os.Build", "getRadioVersion");
-		if ((buildRadio == null) || (buildRadio.length() == 0))
+		if ((buildRadio == null) || (buildRadio.length() == 0)) {
 			buildRadio = Utils.getClassFieldStrOrNull("android.os.Build", "RADIO");
+		}
 		String buildBoard = Utils.getClassFieldStrOrNull("android.os.Build", "BOARD");
 		String buildBrand = Utils.getClassFieldStrOrNull("android.os.Build", "BRAND");
 		String buildDevice = Utils.getClassFieldStrOrNull("android.os.Build", "DEVICE");
@@ -112,38 +115,51 @@ public class SysInfo {
 		ConfigList info = new ConfigList("BuildInfos");
 		List<ConfigBase> items = info.getItems();
 		items.add(new Config("Android version", android.os.Build.VERSION.RELEASE));
-		if (versionCodeName != null)
+		if (versionCodeName != null) {
 			items.add(new Config("Release Codename", versionCodeName));
-		if (versionIncremental != null) // Show it ?
+		}
+		if (versionIncremental != null) { // Show it ?
 			items.add(new Config("Release version incremental", versionIncremental,
 					"The internal value used by the underlying source control to represent this build. E.g., a perforce changelist number or a git hash."));
+		}
 		items.add(new Config("API LEVEL", (versionSdk == -1) ? null : Integer.toString(versionSdk),
 				"The user-visible SDK version of the framework."));
-		if (buildCpuAbi1 != null)
+		if (buildCpuAbi1 != null) {
 			items.add(new Config("CPU ABI", buildCpuAbi1,
 					"The name of the instruction set (CPU type + ABI convention) of native code."));
-		if (buildCpuAbi2 != null)
+		}
+		if (buildCpuAbi2 != null) {
 			items.add(new Config("CPU ABI 2", buildCpuAbi2,
 					"The name of the second instruction set (CPU type + ABI convention) of native code."));
-		if (buildManufacturer != null)
+		}
+		if (buildManufacturer != null) {
 			items.add(new Config("Manufacturer", buildManufacturer, "The manufacturer of the product/hardware."));
-		if (buildBootloader != null)
+		}
+		if (buildBootloader != null) {
 			items.add(new Config("Bootloader", buildBootloader, "The system bootloader version number."));
-		if (buildHardware != null)
+		}
+		if (buildHardware != null) {
 			items.add(new Config("Hardware", buildHardware,
 					"The name of the hardware (from the kernel command line or /proc)."));
-		if (buildRadio != null)
+		}
+		if (buildRadio != null) {
 			items.add(new Config("Radio", buildRadio, "The version string for the radio firmware."));
-		if (buildBoard != null)
+		}
+		if (buildBoard != null) {
 			items.add(new Config("Board", buildBoard, "The name of the underlying board."));
-		if (buildBrand != null)
+		}
+		if (buildBrand != null) {
 			items.add(new Config("Brand", buildBrand, "The brand (e.g., carrier) the software is customized for, if any."));
-		if (buildDevice != null)
+		}
+		if (buildDevice != null) {
 			items.add(new Config("Device", buildDevice, "The name of the industrial design."));
-		if (buildDisplay != null)
+		}
+		if (buildDisplay != null) {
 			items.add(new Config("Display", buildDisplay, "A build ID string meant for displaying to the user."));
-		if (buildFingerprint != null)
+		}
+		if (buildFingerprint != null) {
 			items.add(new Config("Fingerprint", buildFingerprint, "A string that uniquely identifies this build."));
+		}
 		items.add(new Config("Host", android.os.Build.HOST));
 		items.add(new Config("ID", android.os.Build.ID));
 		items.add(new Config("Model", android.os.Build.MODEL, "The end-user-visible name for the end product."));
@@ -209,8 +225,7 @@ public class SysInfo {
 			if (lmklParams.length == 6) {
 				try {
 					for (int i = 0; i < lmklParams.length; i++) {
-						lmklParams[i] = String.format(Utils.locale, "%5.3f MB", Double.parseDouble(lmklParams[i]) * 4.0
-								/ Utils.KB);
+						lmklParams[i] = String.format(Utils.locale, "%5.3f MB", Double.parseDouble(lmklParams[i]) * 4.0 / Utils.KB);
 					}
 					lmklFOREGROUND_APP = lmklParams[0];
 					lmklVISIBLE_APP = lmklParams[1];
@@ -222,8 +237,9 @@ public class SysInfo {
 					Log.e(Utils.LOGGER_TAG, "lmkl params parse error.");
 				}
 			}
-			else
+			else {
 				Log.w(Utils.LOGGER_TAG, "Invalid Low Memory Killer Levels");
+			}
 		}
 
 		ConfigList lmkl = new ConfigList("Low Memory Killer Levels");
@@ -249,17 +265,20 @@ public class SysInfo {
 		items.add(new Config("Data Directory", android.os.Environment.getDataDirectory().getPath()));
 		items.add(new Config("Download Cache Directory", android.os.Environment.getDownloadCacheDirectory().getPath()));
 		items.add(new Config("External Storage State", android.os.Environment.getExternalStorageState()));
-		if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
+		if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
 			items.add(new Config("External Storage Directory", android.os.Environment.getExternalStorageDirectory()
 					.getPath()));
+		}
 		Boolean Environment_isExternalStorageEmulated = Utils.invokeClassMethodBoolOrNull("android.os.Environment",
 				"isExternalStorageEmulated");
-		if (Environment_isExternalStorageEmulated != null)
+		if (Environment_isExternalStorageEmulated != null) {
 			items.add(new Config("External Storage Is Emulated", Environment_isExternalStorageEmulated ? "yes" : "no"));
+		}
 		Boolean Environment_isExternalStorageRemovable = Utils.invokeClassMethodBoolOrNull("android.os.Environment",
 				"isExternalStorageRemovable");
-		if (Environment_isExternalStorageRemovable != null)
+		if (Environment_isExternalStorageRemovable != null) {
 			items.add(new Config("External Storage Is Removable", Environment_isExternalStorageRemovable ? "yes" : "no"));
+		}
 		// TODO: add directory path (use getExternalStoragePublicDirectory(String type))
 		items.add(new Config(
 				"Alarms Directory",
@@ -299,7 +318,7 @@ public class SysInfo {
 		try {
 			Method method = pm.getMethod("getSystemAvailableFeatures", (Class[]) null);
 			Object res = method.invoke(getContext().getPackageManager(), (Object[]) null);
-			if (res != null)
+			if (res != null) {
 				for (int i = 0; i < Array.getLength(res); i++) {
 					Object feature = Array.get(res, i);
 					Field filed = feature.getClass().getField("name");
@@ -310,6 +329,7 @@ public class SysInfo {
 					} else
 						items.add(new Config("feature", name));
 				}
+			}
 		} catch (Exception e) {
 			Log.e(Utils.LOGGER_TAG, "Can not call getSystemAvailableFeatures: " + e.getMessage());
 			items.add(new Config("feature", "is not available in this version of Android"));
@@ -361,8 +381,9 @@ public class SysInfo {
 		items.add(new Config("*Kernel version", procVersion));
 		items.add(new Config("*Android input methods", null));
 		Map<String, String> jenv = java.lang.System.getenv();
-		for (String key : jenv.keySet())
+		for (String key : jenv.keySet()) {
 			items.add(new Config(key, jenv.get(key)));
+		}
 		return msc;
 	}
 

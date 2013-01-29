@@ -52,8 +52,9 @@ public class BatteryReceiver extends BroadcastReceiver {
 	
 	private static String getExtra(String propName, String defaultName) {
 		String result = Utils.getClassFieldStrOrNull("android.os.BatteryManager", propName);
-		if (result == null)
+		if (result == null) {
 			result = defaultName;
+		}
 		return result;
 	}
 
@@ -73,9 +74,9 @@ public class BatteryReceiver extends BroadcastReceiver {
 		case android.os.BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
 			return "unspecified failure";
 		default:
-			if (health == BATTERY_HEALTH_COLD)
+			if (health == BATTERY_HEALTH_COLD) {
 				return "cold";
-			else {
+			} else {
 				Log.w(getClass().getName(), "Unknown health. value = " + Integer.toString(health));
 				return null;
 			}
@@ -87,16 +88,17 @@ public class BatteryReceiver extends BroadcastReceiver {
 	}
 
 	public String getLevelStr() {
-		if (level == -1)
+		if (level == -1) {
 			return null;
-		if (scale <= 0)
+		} else if (scale <= 0) {
 			return Integer.toString(level);
-		else {
+		} else {
 			double value = 100.0 * (double) level / (double) scale;
-			if ((scale == 10) || (scale == 100))
+			if ((scale == 10) || (scale == 100)) {
 				return String.format(Utils.locale, "%3.0f%%", value);
-			else
+			} else {
 				return String.format(Utils.locale, "%5.2f%%", value);
+			}
 		}
 	}
 
@@ -113,10 +115,11 @@ public class BatteryReceiver extends BroadcastReceiver {
 	}
 
 	public String getPresentStr() {
-		if (present == null)
+		if (present == null) {
 			return null;
-		else
+		} else {
 			return present ? "yes" : "no";
+		}
 	}
 
 	public int getScale() {
@@ -148,9 +151,9 @@ public class BatteryReceiver extends BroadcastReceiver {
 	}
 
 	public String getTemperatureStr() {
-		if (temperature == -1)
+		if (temperature == -1) {
 			return null;
-		else {
+		} else {
 			double c = temperature / 100.0;
 			double f = (9.0 * c) / 5.0 + 32.0;
 			return String.format(Utils.locale, "%4.1f°C (%4.1f°F)", c, f);
@@ -158,10 +161,11 @@ public class BatteryReceiver extends BroadcastReceiver {
 	}
 
 	public String getVoltageStr() {
-		if (voltage == -1)
+		if (voltage == -1) {
 			return null;
-		else
+		} else {
 			return String.format(Utils.locale, "%5.4fV", voltage / 1000.0); // TODO: show in V, mV
+		}
 	}
 
 	@Override
@@ -185,7 +189,6 @@ public class BatteryReceiver extends BroadcastReceiver {
 				+ "present=" + Boolean.toString(present) + ", " + "scale=" + Integer.toString(scale) + ", "
 				+ "status=" + Integer.toString(status) + ", " + "technology=" + technology + ", " + "temperature="
 				+ Integer.toString(temperature) + ", " + "voltage=" + Integer.toString(voltage);
-
 		Log.v(Utils.LOGGER_TAG, log);
 	}
 	
